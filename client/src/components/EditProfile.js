@@ -15,6 +15,9 @@ function EditProfile({ user, onClose, onUpdate }) {
     profilePicture: user.profilePicture || "",
   });
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Handler for input field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +41,7 @@ function EditProfile({ user, onClose, onUpdate }) {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/user/${userId}`,
+        `${apiUrl}/user/${userId}`,
         formDataToSend,
         {
           headers: {

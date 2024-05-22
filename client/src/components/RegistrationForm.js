@@ -19,13 +19,16 @@ const RegistrationForm = () => {
   // State to store the list of coaches
   const [coaches, setCoaches] = useState([]);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch all coaches for the user to choose from
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/coaches") // Correct backend URL
+      .get(`${apiUrl}/auth/coaches`)
       .then((response) => setCoaches(response.data))
       .catch((error) => console.error("Error fetching coaches:", error));
-  }, []);
+  }, [apiUrl]);
 
   // Handler for form field changes
   const handleChange = (e) => {
@@ -38,10 +41,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     try {
       // Send registration request to the server
-      const response = await axios.post(
-        "http://localhost:5000/auth/register",
-        formData
-      ); // Correct backend URL
+      const response = await axios.post(`${apiUrl}/auth/register`, formData);
       console.log("Registration successful:", response.data);
       // Redirect to login after successful registration
       window.location.href = "/login";

@@ -14,10 +14,13 @@ function Gallery({ token, isAdmin }) {
   // State to store the file for a new photo
   const [file, setFile] = useState(null);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch photos from the API when the component mounts
   useEffect(() => {
     axios
-      .get("http://localhost:5000/photos", {
+      .get(`${apiUrl}/photos`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -26,7 +29,7 @@ function Gallery({ token, isAdmin }) {
       .catch((error) => {
         console.error("Error fetching photos:", error);
       });
-  }, [token]);
+  }, [token, apiUrl]);
 
   // Handler for file input changes
   const handleFileChange = (e) => {
@@ -41,7 +44,7 @@ function Gallery({ token, isAdmin }) {
     formData.append("caption", caption);
 
     axios
-      .post("http://localhost:5000/upload", formData, {
+      .post(`${apiUrl}/upload`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -62,7 +65,7 @@ function Gallery({ token, isAdmin }) {
   // Handler for deleting a photo
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/photos/${id}`, {
+      .delete(`${apiUrl}/photos/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {

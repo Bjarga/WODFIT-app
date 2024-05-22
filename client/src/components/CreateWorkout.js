@@ -13,10 +13,13 @@ const CreateWorkout = ({ onWorkoutCreated }) => {
   // State to store the workout details
   const [workout, setWorkout] = useState("");
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Handler to create a new workout
   const handleCreateWorkout = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/workouts", {
+      const response = await axios.post(`${apiUrl}/workouts`, {
         title,
         date,
         workout,

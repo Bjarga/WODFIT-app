@@ -13,13 +13,14 @@ const Leaderboard = ({ refresh }) => {
   // State to store the scores
   const [scores, setScores] = useState([]);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch workout titles from the API when the component mounts
   useEffect(() => {
     const fetchWorkoutTitles = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/workouts/titles"
-        );
+        const response = await axios.get(`${apiUrl}/workouts/titles`);
         setWorkoutTitles(response.data);
       } catch (error) {
         console.error("Error fetching workout titles:", error);
@@ -27,14 +28,14 @@ const Leaderboard = ({ refresh }) => {
     };
 
     fetchWorkoutTitles();
-  }, []);
+  }, [apiUrl]);
 
   // useEffect to fetch scores from the API when the workout title or refresh changes
   useEffect(() => {
     const fetchScores = async () => {
       if (!workoutTitle) return;
       try {
-        const response = await axios.get("http://localhost:5000/api/scores", {
+        const response = await axios.get(`${apiUrl}/scores`, {
           params: { workoutTitle },
         });
         setScores(response.data);
@@ -44,7 +45,7 @@ const Leaderboard = ({ refresh }) => {
     };
 
     fetchScores();
-  }, [workoutTitle, refresh]);
+  }, [workoutTitle, refresh, apiUrl]);
 
   // Render the Leaderboard component
   return (

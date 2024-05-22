@@ -10,12 +10,15 @@ function Login({ setToken }) {
   // State to store the password input
   const [password, setPassword] = useState("");
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Send login request to the server
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post(`${apiUrl}/login`, {
         email,
         password,
       });
@@ -80,18 +83,14 @@ function Login({ setToken }) {
           <button
             type="button"
             className="google-button"
-            onClick={() =>
-              (window.location.href = "http://localhost:5000/auth/google")
-            }
+            onClick={() => (window.location.href = `${apiUrl}/auth/google`)}
           >
             Login with Google
           </button>
           <button
             type="button"
             className="facebook-button"
-            onClick={() =>
-              (window.location.href = "http://localhost:5000/auth/facebook")
-            }
+            onClick={() => (window.location.href = `${apiUrl}/auth/facebook`)}
           >
             Login with Facebook
           </button>

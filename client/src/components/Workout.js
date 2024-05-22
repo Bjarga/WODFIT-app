@@ -6,10 +6,13 @@ function Workout({ token }) {
   // State to store the workout details
   const [workout, setWorkout] = useState(null);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch the workout details from the API when the component mounts
   useEffect(() => {
     axios
-      .get("http://localhost:5000/workouts", {
+      .get(`${apiUrl}/workouts`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -18,7 +21,7 @@ function Workout({ token }) {
       .catch((error) => {
         console.error("Error fetching workout:", error);
       });
-  }, [token]);
+  }, [token, apiUrl]);
 
   // Render a loading message if the workout is not yet fetched
   if (!workout) return <div>Loading...</div>;

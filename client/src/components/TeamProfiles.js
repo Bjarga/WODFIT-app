@@ -10,10 +10,13 @@ const TeamProfiles = ({ token }) => {
   // State to store the selected user for viewing profile details
   const [selectedUser, setSelectedUser] = useState(null);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch team members from the API when the component mounts
   useEffect(() => {
     axios
-      .get("http://localhost:5000/profile/members", {
+      .get(`${apiUrl}/profile/members`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -22,7 +25,7 @@ const TeamProfiles = ({ token }) => {
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  }, [token]);
+  }, [token, apiUrl]);
 
   // Handler to view the profile of a selected user
   const handleViewProfile = (user) => {

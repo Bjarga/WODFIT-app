@@ -18,6 +18,9 @@ function UserDashboard() {
   // State to manage leaderboard refresh
   const [refreshLeaderboard, setRefreshLeaderboard] = useState(false);
 
+  // API URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // useEffect to fetch user data from the API when the component mounts
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,9 +30,7 @@ function UserDashboard() {
         return;
       }
       try {
-        const response = await axios.get(
-          `http://localhost:5000/user/${userId}`
-        );
+        const response = await axios.get(`${apiUrl}/user/${userId}`);
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -37,13 +38,13 @@ function UserDashboard() {
     };
 
     fetchUserData();
-  }, []);
+  }, [apiUrl]);
 
   // useEffect to fetch workouts from the API when the component mounts
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/workouts");
+        const response = await axios.get(`${apiUrl}/workouts`);
         setWorkouts(response.data);
       } catch (error) {
         console.error("Error fetching workouts:", error);
@@ -51,7 +52,7 @@ function UserDashboard() {
     };
 
     fetchWorkouts();
-  }, []);
+  }, [apiUrl]);
 
   // Handler to update the user data
   const handleUpdateUser = (updatedUser) => {
