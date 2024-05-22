@@ -26,8 +26,18 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // CORS configuration
+const allowedOrigins = [
+  "https://wodfit-app-b8lo.vercel.app",
+  "https://wodfit-app-b8lo-git-main-bjargas-projects.vercel.app",
+];
 const corsOptions = {
-  origin: "https://wodfit-app-b8lo.vercel.app", // Allow your frontend domain
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
