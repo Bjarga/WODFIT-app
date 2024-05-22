@@ -1,0 +1,72 @@
+/* Header Specific Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: linear-gradient(
+    to right,
+    #2c3e50,
+    #bdc3c7
+  ); /* Gradient background */
+  color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* .header-left {
+  flex: 1;
+} */
+
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.back-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.logout-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: white;
+  color: #333;
+  text-align: center;
+  line-height: 24px;
+  margin-right: 5px;
+}

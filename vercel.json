@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "WODFIT",
+  "builds": [
+    {
+      "src": "backend/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "client/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/build/$1"
+    }
+  ]
+}
