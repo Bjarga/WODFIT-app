@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors"); // Import the cors package
+const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -74,6 +74,12 @@ app.use("/photos", photoRoutes);
 app.use("/profile", profileRoutes);
 app.use(workoutRoutes);
 app.use(scoreRoutes);
+
+// Log all incoming requests for debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 // User Registration
 app.post("/register", async (req, res) => {
